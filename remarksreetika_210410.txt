@@ -1,4 +1,4 @@
-Taxes:
+Taxes: 
     - Initially fill both the creationdate and the changedate to the creationdate
     - The field percentage van be filled, both fields percentage_1 and percentage_100 are returned
     - Errormessage when adding taxes:
