@@ -21,8 +21,8 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
 
         $processor = new Receipt($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->receipt1());
-        print_r($result);
-        die();
+        //print_r($result);
+        //die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
