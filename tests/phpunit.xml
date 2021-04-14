@@ -1,0 +1,26 @@
+<!-- phpunit \-\-configuration tests/phpunit.xml -->
+<phpunit bootstrap="../../autoload.php">
+  <testsuites>
+    <testsuite name="closureapi">
+      <file>closureapi/readClosures.php</file>
+    </testsuite>
+    <testsuite name="invoiceapi">
+      <file>invoiceapi/readInvoices.php</file>
+    </testsuite>
+    <testsuite name="paymentmethodapi">
+      <file>paymentmethodapi/readPaymentmethods.php</file>
+    </testsuite>
+    <testsuite name="orderapi">
+      <file>orderapi/readOrders.php</file>
+    </testsuite>
+    <testsuite name="receiptapi">
+      <file>receiptapi/readReceipts.php</file>
+    </testsuite>
+    <testsuite name="refundapi">
+      <file>refundapi/readRefunds.php</file>
+    </testsuite>
+    <testsuite name="taxapi">
+      <file>taxapi/readTaxes.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

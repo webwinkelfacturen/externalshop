@@ -1,0 +1,6 @@
+deleteTax doesn't work
+
+addInvoice fields invoicediscountExcl and invoicediscountIncl should not be requirement, totalIncl, totalExcl, totalVat should be required
+addInvoice -> adding a validate on the lines vs total
+
+All idfields -> change to strings, an id can be a uuid

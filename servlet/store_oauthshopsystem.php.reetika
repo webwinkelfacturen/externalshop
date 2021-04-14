@@ -1,0 +1,20 @@
+<?php
+
+require( dirname( __FILE__ ) . '/../../autoload.php' );
+
+$clientid      = 'Stxn5eZaIk3SkiHk7tPr3ncT7K85SKJ5AmmtOJPH';
+$clientid      = '.ML-vKZtWm2OIXmX1kiiEJBf3Vzhi7InpqJDCf6Q';
+$accessurl     = 'https://wisteriashop.nl/authorize';
+$accessurl     = 'https://wisteria.webwinkelfacturen.nl/api/authorize';
+$callbackurl   = rawurlencode('https://secure136.cloudinvoice.company/externalshop/servlet/callback.php');
+
+$authorizestring = 'response_type=code&client_id=' . $clientid . '&redirect_uri=' . $callbackurl;
+
+$authorize_endpoint = $accessurl . '?' . $authorizestring;
+
+echo $authorize_endpoint;
+//die();
+
+echo "<script>window.location='" . $authorize_endpoint . "'</script>";
+
+die();
