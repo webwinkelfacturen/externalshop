@@ -19,7 +19,7 @@ class Refund extends Processor {
 
     function delete(string $id):array {
         $http = new RefundHTTP();
-        return json_decode($http->deleteRefund($this->user, $id), true);
+        return json_decode($http->delete($this->user, $id), true);
     }
 
 }

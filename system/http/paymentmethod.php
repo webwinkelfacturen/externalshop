@@ -34,7 +34,7 @@ class Paymentmethod extends HTTP {
     
     function deleteAll( UserAuth $userauth ):string {
         $constants = new Constants();
-        $url       = $constants->getEndpointurl( 'paymentmethodapi' ) .'/deleteall';
+        $url       = $constants->getEndpointurl( 'paymentmethodapi' ) .'/deletepaymentmethods';
         return $this->send_msg($userauth, $url, 'DELETE', [], true);
     }
     

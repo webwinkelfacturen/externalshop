@@ -20,12 +20,9 @@ class addCustomerTest extends \PHPUnit\Framework\TestCase {
 
         $processor = new Customer($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->customer1());
-        print_r($result);
-        die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
-        $this->assertTrue(count($result['data']) == 2);
 
         $diff1 = $this->validate($result['data'], $parms['response']);
         $this->assertTrue(strlen($diff1) == 0);
@@ -58,7 +55,7 @@ class addCustomerTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
-        return '';
+        return '{"data":{"customerid":"1","orderid":"","customernumber":"CUST001","firstname":"Jean","lastname":"Doe","company":"Grocery online","address1":"Stationstraat 12","address2":null,"housenr":null,"zipcode":"1000 AA","city":"Amsterdam","state":null,"country":null,"isocountry":"NL","kvk":null,"btwnr":null,"telnr":null,"mobile":"0612345678","email":"jean@mycompany.nl","iscompany":null,"isicp":null,"isinternational":null,"incltax":null},"message":"Your data is inserted successfully"}';
     }
 
     private function validate(array $trx1, array $trx2):string {

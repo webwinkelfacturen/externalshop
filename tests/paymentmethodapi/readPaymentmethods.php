@@ -12,16 +12,13 @@ use Externalshop\System\Utils\ArrayUtils;
 
 class readPaymentmethodsTest extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
-        $this->addPaymentmethods();
-    }
-
    /**
      * @dataProvider dataProviderPaymentmethod
      */
     public function testReadPaymentmethods($parms) {
+        $this->addPaymentmethods();
         $processor = new Paymentmethod($parms['clientid'], $parms['clientsecret']);
-        $result    = json_decode($processor->readPaymentmethods(), true);
+        $result    = $processor->readPaymentmethods();
 	//print_r(json_encode($result)); die();
 
         $this->assertTrue(array_key_exists('data', $result));
@@ -32,11 +29,6 @@ class readPaymentmethodsTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(strlen($diff1) == 0);
     }
 
-    public function tearDown() {
-        $this->deletePaymentmethods();
-    }
-
-	
     public function dataProviderPaymentmethod() {
         $authentication         = new Authentication();
         $parms1['clientid']     = $authentication->readValue('clientid');
@@ -48,29 +40,21 @@ class readPaymentmethodsTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function addPaymentmethods() {
+        $this->deletePaymentmethods();
         $authentication = new Authentication();
         $processor      = new PaymentMethod($authentication->readValue('clientid'), $authentication->readValue('clientsecret'));
-        $processor->add($this->paymentmethod1());
-        $processor->add($this->paymentmethod2());
+        $processor->add($this->paymentmethods());
     }
 
     private function deletePaymentmethods() {
         $authentication = new Authentication();
         $processor      = new PaymentMethod($authentication->readValue('clientid'), $authentication->readValue('clientsecret'));
-        $pmresponse     = $processor->readPaymentmethods();
-        $pmarray        = json_decode($pmresponse, true);
-        $pmethods       = [];
-        if (is_array($pmarray) && array_key_exists('data', $pmarray)) {
-            $pmethods = $pmarray['data'];
-        }
-
-        foreach ($pmethods as $pm) {
-            $processor->delete($pm['paymentmethodid']);
-        }
+        $processor->deleteAll();
+        return false;
     }
 
     private function readResponse1() {
-        return '{"data":[{"paymentmethodid":"112","name":"ideal","type":"standard"},{"paymentmethodid":"113","name":"paypal","type":"standard"}],"message":"Result"}';
+        return '{"data":[{"paymentmethodid":"112","name":"ideal","type":"standard"},{"paymentmethodid":"113","name":"cash","type":"standard"}],"message":"Result"}';
     }
 
     private function validate(array $trx1, array $trx2):string {
@@ -79,22 +63,19 @@ class readPaymentmethodsTest extends \PHPUnit\Framework\TestCase {
         return $utils->noDifferences($diff);
     }
 
-    private function paymentmethod1() {
-        $pms = [
-                'paymentmethodid' => 112,
-                'name'            => 'ideal',
-                'type'            => 'standard',
+    private function paymentmethods() {
+        return [
+                [
+                 'paymentmethodid' => 112,
+                 'name'            => 'ideal',
+                 'type'            => 'standard',
+                ],
+                [
+                 'paymentmethodid' => 113,
+                 'name'            => 'cash',
+                 'type'            => 'standard',
+                ]
                ];
-        return json_encode(['paymentmethod' => json_encode($pms)]);
-    }
-
-    private function paymentmethod2() {
-        $pms = [
-                'paymentmethodid' => 113,
-                'name'            => 'paypal',
-                'type'            => 'standard',
-               ];
-        return json_encode(['paymentmethod' => json_encode($pms)]);
     }
 
 }

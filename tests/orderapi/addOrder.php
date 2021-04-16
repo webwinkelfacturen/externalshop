@@ -11,7 +11,7 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Order;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readOrdersTest extends \PHPUnit\Framework\TestCase {
+class addOrdersTest extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderOrder

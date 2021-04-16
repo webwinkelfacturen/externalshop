@@ -23,11 +23,11 @@ class addPaymentmethodesTest extends \PHPUnit\Framework\TestCase {
     public function testAddPaymentmethodes($parms) {
         $processor = new Paymentmethod($parms['clientid'], $parms['clientsecret']);
         $result    = json_decode($processor->add($this->paymentmethods()), true);
-	print_r($result); die();
+	//print_r($result); die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
-        $this->assertTrue(count($result['data']) == 4);
+        $this->assertTrue(count($result['data']) == 2);
 
         $diff1 = $this->validate($result['data'], $parms['response']);
         $this->assertTrue(strlen($diff1) == 0);
@@ -51,7 +51,7 @@ class addPaymentmethodesTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
-        return '{"data":[{"taxid":"112","percentage_1":"0.0900","percentage_100":"9.0000","title":"testtax","description":null,"country":"BE","createddate":"2021-04-08 00:00:00","changedate":null},{"taxid":"212","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"BE","createddate":"2021-04-08 00:00:00","changedate":null}],"message":"Success"}';
+        return '{"data":[{"paymentmethodid":"112","name":"ideal","type":"standard"},{"paymentmethodid":"113","name":"cash","type":"standard"}],"message":"Your data is inserted successfully"}';
     }
 
     private function validate(array $trx1, array $trx2):string {

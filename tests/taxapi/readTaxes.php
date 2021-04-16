@@ -24,7 +24,8 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
         $processor = new Tax($parms['clientid'], $parms['clientsecret']);
 
         $result    = json_decode($processor->readTaxes(), true);
-        //print_r(json_encode($result, JSON_PRETTY_PRINT)); die();
+        //print_r($result);
+        //die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
@@ -32,31 +33,8 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
 
         $diff1 = $this->validate($result['data'], $parms['response']);
         $this->assertTrue(strlen($diff1) == 0); 
-
-        // validate 
-        //$utils = new ArrayUtils();
-        //$diff  = $utils->arrayDiff($result['data'], $parms['response'], ['id'] );
-        //$diff = $diff[1];
-
-        //$this->assertTrue( $diff['taxid']             === 'values_equals'         );
-        //$this->assertTrue( $diff['percentage_1']      === 'values_equals'         );
-        //$this->assertTrue( $diff['percentage_100']    === 'values_equals'         );
-        //$this->assertTrue( $diff['title']             === 'values_equals'         );
-        //$this->assertTrue( $diff['description']       === 'values_equals'         );
-        //$this->assertTrue( $diff['country']           === 'values_equals'         );
-        //$this->assertTrue( $diff['createddate']       === 'value_unavailable_new' );
-        //$this->assertTrue( $diff['changedate']        === 'value_unavailable_new' );
-        //$this->assertTrue( $diff['field_taxclass']    === 'value_unavailable_old' );
-        //$this->assertTrue( $diff['field_taxcategory'] === 'value_unavailable_old' );
-        //$this->assertTrue( $diff['field_isdefault']   === 'value_unavailable_old' );
-        //$this->assertTrue( $diff['field_type']        === 'value_unavailable_old' );
-        //$this->assertTrue( $diff['field_typename']    === 'value_unavailable_old' );
     }
 
-    public function tearDown() {
-        $this->deleteTaxes();
-    }
-	
     public function dataProviderTax() {
         $authentication         = new Authentication();
         $parms1['clientid']     = $authentication->readValue('clientid');
@@ -68,6 +46,7 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function addTaxes() {
+        $this->deleteTaxes();
         $authentication = new Authentication();
         $processor      = new Tax($authentication->readValue('clientid'), $authentication->readValue('clientsecret'));
         $processor->add([$this->tax1(), $this->tax2()]);
@@ -90,7 +69,7 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
 
     private function validate(array $trx1, array $trx2):string {
         $utils = new ArrayUtils();
-        $diff  = $utils->arrayDiff($trx1, $trx2, ['id'], true);
+        $diff  = $utils->arrayDiff($trx1, $trx2, ['id', 'createddate', 'changedate'], true);
         return $utils->noDifferences($diff);
     }
 

@@ -31,5 +31,10 @@ class Customer extends HTTP {
         $url       = $constants->getEndpointurl( 'customerapi' ) . '/deletecustomer/' . $id;
         return $this->send_msg($userauth, $url, 'DELETE', [], true);
     }
+    function deleteAll( UserAuth $userauth ):string {
+        $constants = new Constants();
+        $url       = $constants->getEndpointurl( 'customerapi' ) . '/deletecustomers';
+        return $this->send_msg($userauth, $url, 'DELETE', [], true);
+    }
     
 }

@@ -3,24 +3,34 @@
   <testsuites>
     <testsuite name="closureapi">
       <file>closureapi/readClosures.php</file>
+      <file>closureapi/addClosure.php</file>
+    </testsuite>
+    <testsuite name="customerapi">
+      <file>closureapi/addCustomer.php</file>
     </testsuite>
     <testsuite name="invoiceapi">
       <file>invoiceapi/readInvoices.php</file>
-    </testsuite>
-    <testsuite name="paymentmethodapi">
-      <file>paymentmethodapi/readPaymentmethods.php</file>
+      <file>invoiceapi/addInvoice.php</file>
     </testsuite>
     <testsuite name="orderapi">
       <file>orderapi/readOrders.php</file>
+      <file>orderapi/addOrder.php</file>
+    </testsuite>
+    <testsuite name="paymentmethodapi">
+      <file>paymentmethodapi/readPaymentmethods.php</file>
+      <file>paymentmethodapi/addPaymentmethods.php</file>
     </testsuite>
     <testsuite name="receiptapi">
       <file>receiptapi/readReceipts.php</file>
+      <file>receiptapi/addReceipt.php</file>
     </testsuite>
     <testsuite name="refundapi">
       <file>refundapi/readRefunds.php</file>
+      <file>refundapi/addRefund.php</file>
     </testsuite>
     <testsuite name="taxapi">
       <file>taxapi/readTaxes.php</file>
+      <file>taxapi/addTaxes.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

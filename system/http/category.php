@@ -23,7 +23,6 @@ class Category extends HTTP {
     function add( UserAuth $userauth, array $data ):string {
         $constants = new Constants();
         $url = $constants->getEndpointurl( 'categoryapi' ) . '/addcategories';
-error_log($url);
         return $this->send_msg($userauth, $url, 'POST', $data, true);
     }
 

@@ -32,9 +32,9 @@ class Closure extends HTTP {
         return $this->send_msg($userauth, $url, 'DELETE', [], true);
     }
     
-    function deleteAll( UserAuth $userauth, string $string, string $enddate ):string {
+    function deleteAll( UserAuth $userauth, string $startdate, string $enddate ):string {
         $constants = new Constants();
-        $url       = $constants->getEndpointurl( 'closureapi' ) . '/deleteclosure';
+        $url       = $constants->getEndpointurl( 'closureapi' ) . '/deleteclosures';
         $data      = ['startdate' => $startdate, 'enddate' => $enddate];
         return $this->send_msg($userauth, $url, 'DELETE', $data, true);
     }

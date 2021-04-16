@@ -11,7 +11,7 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Refund;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readRefundsTest extends \PHPUnit\Framework\TestCase {
+class addRefundTest extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderRefund
@@ -21,12 +21,11 @@ class readRefundsTest extends \PHPUnit\Framework\TestCase {
 
         $processor = new Refund($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->refund1());
-        print_r($result);
-        die();
+        //print_r($result);
+        //die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
-        $this->assertTrue(count($result['data']) == 2);
 
         $diff1 = $this->validate($result['data'], $parms['response']);
         $this->assertTrue(strlen($diff1) == 0);
@@ -48,10 +47,10 @@ class readRefundsTest extends \PHPUnit\Framework\TestCase {
     private function deleteRefunds() {
         $authentication = new Authentication();
         $processor      = new Refund($authentication->readValue('clientid'), $authentication->readValue('clientsecret'));
-        $startdate      = '2021-03-01';
+        $startdate      = '2020-01-01';
         $enddate        = date('Y-m-d');
         $refundarray     = $processor->readRefunds($startdate, $enddate);
-        //$refundarray     = json_decode($refundresponse, true);
+	
         $refunds         = [];
         if (is_array($refundarray) && array_key_exists('data', $refundarray)) {
             $refunds = $refundarray['data'];
@@ -81,7 +80,7 @@ class readRefundsTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
-        return '{"data":[{"id":"5","licensekey":"c4365634cedbe359e75020b9ae8b26","refundid":"112","affiliatenr":"testaff2","cartnr":null,"customerid":"1","paymentstatus":"paid","refundstatus":"completed","refundnumber":"ORD003","refunddate":"2021-03-01 00:00:00","deliverydate":null,"totalExclWithDiscount":"100.0000","totalInclWithDiscount":"121.0000","totalVatWithDiscount":"21.0000","totalDiscountIncl":"0.0000","totalDiscountExcl":"0.0000","changedate":null,"creationdate":"2021-03-08 00:00:00"},{"id":"6","licensekey":"c4365634cedbe359e75020b9ae8b26","refundid":"118","affiliatenr":"testaff2","cartnr":null,"customerid":"2","paymentstatus":"paid","refundstatus":"completed","refundnumber":"ORD004","refunddate":"2021-03-01 00:00:00","deliverydate":null,"totalExclWithDiscount":"100.0000","totalInclWithDiscount":"121.0000","totalVatWithDiscount":"21.0000","totalDiscountIncl":"0.0000","totalDiscountExcl":"0.0000","changedate":null,"creationdate":"2021-03-08 00:00:00"}],"message":"Your data is inserted successfully"}';
+        return '{"data":{"refundid":"122","refundnumber":"RET001","orderid":"112","customerid":"","ordernumber":"ORD003","affiliatenr":"testaff2","refundstatus":"completed","refunddate":"2021-03-21 00:00:00","paymentstatus":"paid","totalInclWithDiscount":"-163.5000","totalExclWithDiscount":"-150.0000","totalVatWithDiscount":"-13.5000","totalDiscountIncl":null,"totalDiscountExcl":null,"totalDiscountVat":null,"isicp":null,"isinternational":null,"currency":null,"pdf":null,"duedate":null,"duedays":null,"totalpaid":null,"totalunpaid":null,"items":[],"customer":false,"fees":[],"shipping":[],"payment":[]},"message":"Your data is inserted successfully"}';
     }
 
     private function validate(array $trx1, array $trx2):string {

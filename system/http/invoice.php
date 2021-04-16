@@ -34,7 +34,7 @@ class Invoice extends HTTP {
     
     function deleteAll( UserAuth $userauth, string $startdate, string $enddate ):string {
         $constants = new Constants();
-        $url       = $constants->getEndpointurl( 'invoiceapi' ) . '/deleteinvoice';
+        $url       = $constants->getEndpointurl( 'invoiceapi' ) . '/deleteinvoices';
         $data      = ['startdate' => $startdate, 'enddate' => $enddate];
         return $this->send_msg($userauth, $url, 'DELETE', $data, true);
     }

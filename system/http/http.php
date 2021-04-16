@@ -12,8 +12,6 @@ class HTTP {
         try {
             $accesstoken = $this->getToken($user);
 
-echo $url;
-
             $data['signature'] = $this->determineSignature($accesstoken, $data);
 
             $header[1] = 'Accept: application/json';
@@ -27,6 +25,7 @@ echo $url;
             curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curl, CURLOPT_VERBOSE, false);
 
             if ($method == 'POST') {
                 curl_setopt($curl, CURLOPT_POST, 1);
@@ -44,8 +43,8 @@ echo $url;
         
             $result = curl_exec($curl);
   
-            //echo json_encode($data);
-            //print_r($result);
+            //error_log("\n\rresponse\n\r");
+            //error_log(print_r($result, true));
             curl_close($curl);
 
             return (string)$result;

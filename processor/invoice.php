@@ -18,8 +18,9 @@ class Invoice extends Processor {
     }
 
     function deleteAll(string $startdate, string $enddate):array {
-        $http = new OrderHTTP();
-        return json_decode($http->deleteAll($this->user, $id), true);
+        $http = new InvoiceHTTP();
+        $response = $http->deleteAll($this->user, $startdate, $enddate);
+        return json_decode($response, true);
     }
 
     function delete(string $id):array {

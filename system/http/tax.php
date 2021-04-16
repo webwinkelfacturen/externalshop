@@ -34,7 +34,7 @@ class Tax extends HTTP {
     
     function deleteAll( UserAuth $userauth ):string {
         $constants = new Constants();
-        $url       = $constants->getEndpointurl( 'taxapi' ) . '/deleteall';
+        $url       = $constants->getEndpointurl( 'taxapi' ) . '/deletetaxes';
         return $this->send_msg($userauth, $url, 'DELETE', [], true);
     }
     

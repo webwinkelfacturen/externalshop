@@ -11,7 +11,7 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Receipt;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readReceiptsTest extends \PHPUnit\Framework\TestCase {
+class addReceiptsTest extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderReceipt
@@ -20,14 +20,13 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
         $this->deleteReceipts();
 
         $processor = new Receipt($parms['clientid'], $parms['clientsecret']);
+       
         $result    = $processor->add($this->receipt1());
         //print_r($result);
         //die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
-        $this->assertTrue(count($result['data']) == 2);
-
         $diff1 = $this->validate($result['data'], $parms['response']);
         $this->assertTrue(strlen($diff1) == 0);
     }
@@ -62,7 +61,7 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
-        return '{"data":[{"id":"5","licensekey":"c4365634cedbe359e75020b9ae8b26","receiptid":"112","affiliatenr":"testaff2","cartnr":null,"customerid":"1","paymentstatus":"paid","receiptstatus":"completed","receiptnumber":"ORD003","receiptdate":"2021-03-01 00:00:00","deliverydate":null,"totalExclWithDiscount":"100.0000","totalInclWithDiscount":"121.0000","totalVatWithDiscount":"21.0000","totalDiscountIncl":"0.0000","totalDiscountExcl":"0.0000","changedate":null,"creationdate":"2021-03-08 00:00:00"},{"id":"6","licensekey":"c4365634cedbe359e75020b9ae8b26","receiptid":"118","affiliatenr":"testaff2","cartnr":null,"customerid":"2","paymentstatus":"paid","receiptstatus":"completed","receiptnumber":"ORD004","receiptdate":"2021-03-01 00:00:00","deliverydate":null,"totalExclWithDiscount":"100.0000","totalInclWithDiscount":"121.0000","totalVatWithDiscount":"21.0000","totalDiscountIncl":"0.0000","totalDiscountExcl":"0.0000","changedate":null,"creationdate":"2021-03-08 00:00:00"}],"message":"Your data is inserted successfully"}';
+        return '{"data":{"receiptid":"112","receiptnumber":"REC005","receiptdate":"2021-03-21 00:00:00","customerid":"2","deliveryaddressid":null,"affiliatenr":"testaff2","receiptstatus":"completed","paymentstatus":"paid","totalInclWithDiscount":"109.0000","totalExclWithDiscount":"100.0000","totalVatWithDiscount":"9.0000","totalDiscountIncl":null,"totalDiscountExcl":null,"totalDiscountVat":null,"isicp":null,"currency":null,"isinternational":null,"pdf":null,"duedate":null,"duedays":null,"totalpaid":null,"totalunpaid":null,"lines":[],"customer":false,"fees":[],"payment":[]},"message":"Your data is inserted successfully"}';
     }
 
     private function validate(array $trx1, array $trx2):string {
@@ -78,7 +77,7 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
     private function receipt1():array {
         return [
                 'receiptid'             => 112,
-                'receiptnumber'         => 'REC003',
+                'receiptnumber'         => 'REC005',
                 'affiliatenr'           => 'testaff2',
                 'paymentstatus'         => 'paid',
                 'receiptstatus'         => 'completed',
@@ -86,6 +85,7 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
                 'totalExclWithDiscount' => 100,
                 'totalInclWithDiscount' => 109,
                 'totalVatWithDiscount'  => 9,
+                'customerid'            => 2,
                 'lines'  => [
                              [
                               'referenceid' => 112,
@@ -97,8 +97,10 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
                               'lineExclWithDiscount' => 50.00,
                               'lineVatWithDiscount'  => 4.50,
                               'taxpercentage'  => 9,
-                             ],
-                             [
+                              'totalDiscountIncl' => 0.0000,
+                              'totalDiscountExcl' => 0.0000,
+                             ]],
+                'shipping' => [[
                                'referenceid'          => 112,
                                'lineid'               => 1,
                                'name'                 => 'Bag of Bananas',
@@ -108,8 +110,8 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
                                'lineExclWithDiscount' => 50.00,
                                'lineVatWithDiscount'  => 4.50,
                                'taxpercentage'        => 9,
-                             ]
-                            ]
+                             ]]
+                            
                ];
 
     }

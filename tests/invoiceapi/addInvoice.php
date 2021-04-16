@@ -26,11 +26,10 @@ class addInvoiceTest extends \PHPUnit\Framework\TestCase {
         $this->deleteInvoices();
         $processor = new Invoice($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->invoice1());
-	//print_r($this->invoice1()); die();
 	//print_r(count($result['data'])); die();
+
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
-        //$this->assertTrue(count($result['data']) == 1);
 
         $diff1 = $this->validate($result['data'], $parms['response']);
         $this->assertTrue(strlen($diff1) == 0);
@@ -84,6 +83,7 @@ class addInvoiceTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
+        return '{"data":{"invoiceid":"4","invoicenumber":"INV004","isicp":null,"currency":null,"isinternational":null,"invoicestatus":null,"paymentstatus":null,"invoicedate":"2021-03-01 00:00:00","affiliatenr":"testaff2","cartnr":null,"customerid":"2","orderid":"4","iscredit":null,"duedays":null,"duedate":null,"pdf":null,"totalpaid":null,"totalunpaid":null,"totalInclWithDiscount":"230.0000","totalExclWithDiscount":"200.0000","totalVatWithDiscount":"30.0000","totalDiscountIncl":null,"totalDiscountExcl":null,"totalDiscountVat":null,"lines":[],"customer":{"customerid":"2","orderid":"2","customernumber":"CUST_002","firstname":"Jimmy","lastname":"Doe","company":"Sportschool","address1":"Stationstraat","address2":null,"housenr":"12a","zipcode":"1000 AA","city":"Amsterdam","state":null,"country":null,"isocountry":"NL","kvk":null,"btwnr":null,"telnr":null,"mobile":"312309324342","email":"jimmy@mycompany.nl","iscompany":null,"isicp":null,"isinternational":null,"incltax":null},"fees":[],"payment":[],"shipping":[]},"message":"Your data is inserted successfully"}';
         return '{"data":[{"id":"4","licensekey":"c4365634cedbe359e75020b9ae8b26","invoiceid":"4","invoicenumber":"INV004","isicp":null,"isinternational":null,"paymentdate":"2021-03-02 00:00:00","invoicedate":"2021-03-01 00:00:00","affiliatenr":"testaff2","cartnr":null,"orderid":"4","iscredit":null,"duedays":null,"duedate":null,"pdf":null,"totalpaid":null,"totalunpaid":null,"invoicediscountExcl":"0.0000","invoicediscountIncl":"0.0000","creationdate":"2021-03-08 00:00:00","changedate":null},{"id":"4","licensekey":"c4365634cedbe359e75020b9ae8b26","invoiceid":"4","invoicenumber":"INV004","isicp":null,"isinternational":null,"paymentdate":"2021-03-02 00:00:00","invoicedate":"2021-03-01 00:00:00","affiliatenr":"testaff2","cartnr":null,"orderid":"4","iscredit":null,"duedays":null,"duedate":null,"pdf":null,"totalpaid":null,"totalunpaid":null,"invoicediscountExcl":"0.0000","invoicediscountIncl":"0.0000","creationdate":"2021-03-08 00:00:00","changedate":null}],"message":"Result"}';
     }
 
@@ -104,7 +104,7 @@ class addInvoiceTest extends \PHPUnit\Framework\TestCase {
                 'totalExclWithDiscount' => 200,
                 'totalInclWithDiscount' => 230,
                 'totalVatWithDiscount'  => 30,
-                'items' => [
+                'lines' => [
                             [
                              'referenceid'          => 3,
                              'lineid'               => 1,

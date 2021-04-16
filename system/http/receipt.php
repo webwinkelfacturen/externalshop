@@ -34,7 +34,7 @@ class Receipt extends HTTP {
     
     function deleteAll( UserAuth $userauth, string $startdate, string $enddate ):string {
         $constants = new Constants();
-        $url       = $constants->getEndpointurl( 'receiptapi' ) . '/deletereceipt';
+        $url       = $constants->getEndpointurl( 'receiptapi' ) . '/deletereceipts';
         $data      = ['startdate' => $startdate, 'enddate' => $enddate];
         return $this->send_msg($userauth, $url, 'DELETE', $data, true);
     }

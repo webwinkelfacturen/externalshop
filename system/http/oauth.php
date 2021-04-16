@@ -57,7 +57,6 @@ class OAuth {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postparms );
         curl_setopt($ch, CURLOPT_POST, 1);
         $request_result = curl_exec($ch);
-print_r($request_result);
        
         curl_close($ch);
         return $request_result;

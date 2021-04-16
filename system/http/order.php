@@ -11,7 +11,6 @@ class Order extends HTTP {
     function getOrders( UserAuth $userauth, string $startdate, string $enddate, int $page = 0, int $count = 10 ):string {
         $constants = new Constants();
         $url = $constants->getEndpointurl( 'orderapi' ) .'/listorders?startdate=' . $startdate . '&enddate=' . $enddate . '&page=' . $page . '&count=' . $count;
-echo $url;
         return $this->send_msg( $userauth, $url, 'GET', [], true );
     }
 
@@ -35,7 +34,7 @@ echo $url;
     
     function deleteAll( UserAuth $userauth, string $startdate, string $enddate ):string {
         $constants = new Constants();
-        $url       = $constants->getEndpointurl( 'orderapi' ) .'/deleteorder';
+        $url       = $constants->getEndpointurl( 'orderapi' ) .'/deleteorders';
         $data      = ['startdate' => $startdate, 'enddate' => $enddate];
         return $this->send_msg($userauth, $url, 'DELETE', $data, true);
     }

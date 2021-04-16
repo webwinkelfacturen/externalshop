@@ -14,9 +14,6 @@ $authorizestring = 'response_type=code&client_id=' . $clientid . '&redirect_url=
 
 $authorize_endpoint = $accessurl . '?' . $authorizestring;
 
-echo $authorize_endpoint;
-//die();
-
 echo "<script>window.location='" . $authorize_endpoint . "'</script>";
 
 die();
