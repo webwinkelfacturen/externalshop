@@ -8,15 +8,9 @@ use WWF\Tools\StringUtils;
 
 session_start();
 
-if (!isset($argv)) {
-    $argv = [];
-}
-
 $code  = determineCode($_GET, $argv);
-//print_r($code); die;
 if ($code){
     $return = getTokenRequest($_GET, $argv);
-print_r($return);
     if (array_key_exists('error', $return) && strlen(trim($return['error'])) > 0) {
         $string = '';
         $string .= '<div>Er is iets mis gegaan met de authenticatie. Probeer het later nog eens';
@@ -29,8 +23,6 @@ print_r($return);
     $refreshtoken = $return['refresh_token'];
     $accesstoken  = $return['access_token'];
     writeTokens(['tokensource', 'tokensourcesecret'], [$refreshtoken, $accesstoken]);
-
-    //setShopid($creds, $argv);
 
     header("Location: " . determineNextpage());
 }
@@ -71,7 +63,6 @@ function writeTokens($fnames,$fvalues) {
     foreach ($arr as $key => $val) {
         $string .= $key . '=' . $val . "\r\n";
     }
-//error_log($string);
     file_put_contents($file, $string);
 }
 
