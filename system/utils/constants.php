@@ -6,12 +6,10 @@ class Constants {
 
     function getClientid(string $system = '') {
         return 'tk-2X6bg8JJSMe7qkYaDkd5hSDFPLSLXI5l9V9SS';
-        return '.ML-vKZtWm2OIXmX1kiiEJBf3Vzhi7InpqJDCf6Q';
     }
 
     function getClientsecret(string $system = '') {
         return 'EOTTBU5tf57pQterbFdXOW4ph';
-        return 'Ba63m23CzG9QJsoAw-V6E.uQ-';
     }
 
     function getEndpointurl(string $file = '') {
