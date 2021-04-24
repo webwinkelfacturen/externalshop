@@ -16,7 +16,7 @@ class Authentication {
             }
             fclose($handle);
         }
-        return '';
+        return 'nokey';
     }
 
 }

@@ -8,6 +8,10 @@ use WWF\Tools\StringUtils;
 
 session_start();
 
+$code  = determineCode($_GET, []);
+if (empty($argv)) {
+    $argv = [];
+}
 $code  = determineCode($_GET, $argv);
 if ($code){
     $return = getTokenRequest($_GET, $argv);
@@ -58,12 +62,13 @@ function setShopid(Credentials $creds, array $argv) {
 
 function writeTokens($fnames,$fvalues) {
     $arr    = array_combine($fnames, $fvalues);
-    $file   = dirname( __FILE__ ) . '/tokens.config';
+    $file   = dirname(__FILE__) . '/../../../../files/externalshop/oauth/user.cnf';
+
     $string = '';
     foreach ($arr as $key => $val) {
         $string .= $key . '=' . $val . "\r\n";
     }
-    file_put_contents($file, $string);
+    $return = file_put_contents($file, $string);
 }
 
 function determineNextpage():string {

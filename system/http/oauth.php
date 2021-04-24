@@ -28,7 +28,7 @@ class OAuth {
     function refreshtoken_request(UserAuth $userauth) { 
         $constants   = new Constants();
         $refreshurl  = $constants->getWisteriaOAuthurl() . '/token';
-        $postparms   = 'grant_type=refresh_token&type=external&client_id=' . $constants->getClientid() . '&client_secret=' . $constants->getClientsecret() . '&refresh_token=' . $userauth->getClientid();
+        $postparms   = 'grant_type=refresh_token&type=external&client_id=' . $constants->getClientid() . '&client_secret=' . $constants->getClientsecret() . '&refresh_token=' . trim($userauth->getClientid());
         $response    = json_decode($this->doHttpRequest($refreshurl, $postparms), true);
 
         $this->persist($response);
