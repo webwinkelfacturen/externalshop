@@ -74,7 +74,7 @@ class readReceiptsTest extends \PHPUnit\Framework\TestCase {
 
     private function validate(array $trx1, array $trx2):string {
         $utils = new ArrayUtils();
-        $diff  = $utils->arrayDiff($trx1, $trx2, ['id', 'licensekey', 'creationdate', 'changedate'], true);
+        $diff  = $utils->arrayDiff($trx1, $trx2, ['id', 'licensekey', 'createddate', 'changedate'], true);
         return $utils->noDifferences($diff);
     }
 

@@ -32,7 +32,6 @@ class HTTP {
             }
             if ($data) { 
                 if (in_array($method, ['DELETE', 'POST'])) { 
-                    print_r( $data );
                     curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query( $data )  );
                 } else { 
                     $url = sprintf("%s?%s", $url, http_build_query($data));
