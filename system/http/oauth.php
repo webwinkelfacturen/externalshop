@@ -28,7 +28,7 @@ class OAuth {
     function refreshtoken_request(UserAuth $userauth) { 
         $constants   = new Constants();
         $refreshurl  = $constants->getWisteriaOAuthurl() . '/token';
-        $postparms   = 'grant_type=refresh_token&type=external&client_id=' . $constants->getClientid() . '&client_secret=' . $constants->getClientsecret() . '&refresh_token=' . trim($userauth->getClientid());
+        $postparms   = 'grant_type=refresh_token&type=external&client_id=' . $constants->getClientid() . '&client_secret=' . $constants->getClientsecret() . '&refresh_token=' . trim($userauth->getClientsecret());
         $response    = json_decode($this->doHttpRequest($refreshurl, $postparms), true);
 
         $this->persist($response);
@@ -37,7 +37,7 @@ class OAuth {
 
     private function persist(array $response) {
          $oauthfile = dirname(__FILE__) . '/../../../../../files/externalshop/oauth/user.cnf';
-         $string    = 'clientid=' . $response['refresh_token'] . "\r\n";
+         $string    = 'clientid' . $response['refresh_token'] . "\r\n";
          $string   .= 'clientsecret=' . $response['access_token'] . "\r\n";
          file_put_contents($oauthfile, $string);
     }

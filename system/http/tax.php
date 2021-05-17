@@ -20,10 +20,11 @@ class Tax extends HTTP {
         return $this->send_msg( $userauth, $url, 'GET', [], true );
     }
 
-    function addTaxes( UserAuth $userauth, array $data ):string {
+    function addTaxes( UserAuth $userauth, array $data, bool $jsonencode = false ):string {
+echo 'addTaxes jsonencode ' . $jsonencode;
         $constants = new Constants();
         $url = $constants->getEndpointurl( 'taxapi' ) .'/addtaxes';
-        return  $this->send_msg($userauth, $url, 'POST', $data, true);
+        return  $this->send_msg($userauth, $url, 'POST', $data, true, $jsonencode);
     }
 
     function deleteTax( UserAuth $userauth, $id ):string {

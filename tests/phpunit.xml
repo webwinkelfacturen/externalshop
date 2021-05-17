@@ -5,6 +5,11 @@
       <file>closureapi/readClosures.php</file>
       <file>closureapi/addClosure.php</file>
     </testsuite>
+    <testsuite name="categoryapi">
+      <file>categoryapi/addCategories.php</file>
+      <file>categoryapi/readCategories.php</file>
+      <file>categoryapi/readCategory.php</file>
+    </testsuite>
     <testsuite name="customerapi">
       <file>closureapi/addCustomer.php</file>
     </testsuite>

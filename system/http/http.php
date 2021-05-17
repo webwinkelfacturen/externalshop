@@ -8,12 +8,11 @@ use Externalshop\System\Utils\Constants;
 
 class HTTP {
 
-    function send_msg(UserAuth $user, string $url, string $method, array $data = [], bool $firsttry = true):string {
-        try {
-            $data['signature'] = $this->determineSignature($user->getClientsecret(), $data);
+    function send_msg(UserAuth $user, string $url, string $method, array $data = [], bool $firsttry = true, $jsonencode = false):string {
+        try { 
 
             $header[1] = 'Accept: application/json';
-            $header[2] = 'Content-Type: application/x-www-form-urlencoded';
+            $header[2] = $this->getContentType($jsonencode);
             $header[3] = 'Authorization: Bearer '  . trim($user->getClientsecret());
 
             $curl = curl_init();
@@ -32,7 +31,12 @@ class HTTP {
             }
             if ($data) { 
                 if (in_array($method, ['DELETE', 'POST'])) { 
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query( $data )  );
+                    $data['signature'] = $this->determineSignature($user->getClientsecret(), $data);
+                    if ($jsonencode) {
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data)  );
+                    } else {
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query( $data )  );
+                    }
                 } else { 
                     $url = sprintf("%s?%s", $url, http_build_query($data));
                 }
@@ -68,7 +72,7 @@ class HTTP {
     private function getToken(UserAuth $user):string { 
         $oauth = new OAuth();
         $array = $oauth->refreshtoken_request($user);
- 
+
         if (array_key_exists('access_token', $array)) {
             $user->modify( ['clientid' => $array['refresh_token'], 'clientsecret' => $array['access_token']] );
             return $array['access_token'];
@@ -76,9 +80,16 @@ class HTTP {
         return '';
     }
     
+    private function getContentType(bool $jsonencode):string {
+        if ($jsonencode) {
+            return 'Content-Type: application/json';
+        } 
+        return 'Content-Type: application/x-www-form-urlencoded';
+    }
+
     private function determineSignature(string $token, array $array):string {
         $constants = new Constants();
-        //return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().json_encode($array).gmdate("dmY") );
+       
         return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().(string)reset($array).gmdate("dmY") );
     }
 }

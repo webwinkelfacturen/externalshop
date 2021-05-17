@@ -21,7 +21,7 @@ class addTaxesTest extends \PHPUnit\Framework\TestCase {
      * @dataProvider dataProviderTaxes
      */
     public function testAddTaxes($parms) {
-        $processor = new Tax($parms['clientid'], $parms['clientsecret']);
+        $processor = new Tax($parms['clientid'], $parms['clientsecret'], $parms['jsonencode']);
         $result    = json_decode($processor->add($this->taxes()), true);
         //print_r($result); die();
 
@@ -38,9 +38,17 @@ class addTaxesTest extends \PHPUnit\Framework\TestCase {
         $authentication         = new Authentication();
         $parms1['clientid']     = $authentication->readValue('clientid');
         $parms1['clientsecret'] = $authentication->readValue('clientsecret');
+        $parms1['jsonencode']   = false;
         $parms1['response']     = json_decode($this->readResponse1(), true)['data'];
+
+        $parms2['clientid']     = $authentication->readValue('clientid');
+        $parms2['clientsecret'] = $authentication->readValue('clientsecret');
+        $parms2['jsonencode']   = true;
+        $parms2['response']     = json_decode($this->readResponse1(), true)['data'];
+
         return [
 	    [$parms1],
+	    [$parms2]
 	];
     }
 

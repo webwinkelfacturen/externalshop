@@ -8,12 +8,12 @@ class UserAuth {
     private $clientsecret;
 
     function __construct(string $id, string $secret) {
-        $this->clientid     = $id;
+        $this->clientid       = $id;
         $this->clientsecret = $secret;
     }
 
     function modify(array $array) {
-        $this->clientid     = $array['clientid'];
+        $this->clientid       = $array['clientid'];
         $this->clientsecret = $array['clientsecret'];
     }
 

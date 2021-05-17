@@ -9,13 +9,13 @@ use Externalshop\System\HTTP\Tax as TaxHTTP;
 class Tax extends Processor {
 
     function readTaxes():string {
-        $http     = new TaxHTTP();
+        $http = new TaxHTTP();
         return $http->getTaxes($this->user);
     }
 
     function add(array $array):string {
         $http = new TaxHTTP();
-        return $http->addTaxes($this->user, ['taxes' => json_encode($array)]);
+        return $http->addTaxes($this->user, ['taxes' => json_encode($array)], $this->jsonencode);
     }
 
     function delete(string $jsontaxid):string {

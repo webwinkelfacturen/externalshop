@@ -13,14 +13,12 @@ use Externalshop\System\Utils\ArrayUtils;
 //phpunit v7.5
 class readTaxesTest extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
-        $this->addTaxes();
-    }
-
    /**
      * @dataProvider dataProviderTax
      */
     public function testReadTaxes($parms) {
+        $this->addTaxes($parms['jsonencode']);
+
         $processor = new Tax($parms['clientid'], $parms['clientsecret']);
 
         $result    = json_decode($processor->readTaxes(), true);
@@ -39,17 +37,25 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
         $authentication         = new Authentication();
         $parms1['clientid']     = $authentication->readValue('clientid');
         $parms1['clientsecret'] = $authentication->readValue('clientsecret');
+        $parms1['jsonencode']   = false;
         $parms1['response']     = json_decode($this->readResponse1(), true)['data'];
+
+        $parms2['clientid']     = $authentication->readValue('clientid');
+        $parms2['clientsecret'] = $authentication->readValue('clientsecret');
+        $parms2['jsonencode']   = true;
+        $parms2['response']     = json_decode($this->readResponse1(), true)['data'];
+
         return [
 	    [$parms1],
+	    [$parms2],
 	];
     }
 
-    private function addTaxes() {
+    private function addTaxes(bool $jsonencode) {
         $this->deleteTaxes();
         $authentication = new Authentication();
-        $processor      = new Tax($authentication->readValue('clientid'), $authentication->readValue('clientsecret'));
-        $processor->add([$this->tax1(), $this->tax2()]);
+        $processor      = new Tax($authentication->readValue('clientid'), $authentication->readValue('clientsecret'), $jsonencode);
+        $result = $processor->add([$this->tax1(), $this->tax2()]);
     }
 
     private function deleteTaxes() {

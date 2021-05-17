@@ -18,7 +18,7 @@ class addCustomerTest extends \PHPUnit\Framework\TestCase {
     public function testAddCustomer($parms) {
         $this->deleteCustomers();
 
-        $processor = new Customer($parms['clientid'], $parms['clientsecret']);
+        $processor = new Customer($parms['clientid'], $parms['clientsecret'], $parms['jsonencode']);
         $result    = $processor->add($this->customer1());
 
         $this->assertTrue(array_key_exists('data', $result));
@@ -33,9 +33,17 @@ class addCustomerTest extends \PHPUnit\Framework\TestCase {
         $authentication         = new Authentication();
         $parms1['clientid']     = $authentication->readValue('clientid');
         $parms1['clientsecret'] = $authentication->readValue('clientsecret');
+        $parms1['jsonencode']   = false;
         $parms1['response']     = json_decode($this->readResponse1(), true)['data'];
+
+        $parms2['clientid']     = $authentication->readValue('clientid');
+        $parms2['clientsecret'] = $authentication->readValue('clientsecret');
+        $parms2['jsonencode']   = true;
+        $parms2['response']     = json_decode($this->readResponse1(), true)['data'];
+
         return [
 	    [$parms1],
+	    [$parms2],
 	];
     }
 
@@ -71,7 +79,7 @@ class addCustomerTest extends \PHPUnit\Framework\TestCase {
                 'firstname'      => 'Jean',
                 'lastname'       => 'Doe',
                 'company'        => 'Grocery online',
-                'address1'       => 'Stationstraat 12',
+                'address'        => 'Stationstraat 12',
                 'zipcode'        => '1000 AA',
                 'city'           => 'Amsterdam',
                 'isocountry'     => 'NL',

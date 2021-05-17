@@ -14,7 +14,7 @@ class Customer extends Processor {
 
     function add(array $array):array {
         $http = new CustomerHTTP();
-        return json_decode($http->add($this->user, ['customer' => json_encode($array)]), true);
+        return json_decode($http->add($this->user, ['customer' => json_encode($array)], $this->jsonencode), true);
     }
 
     function delete(string $id):array {

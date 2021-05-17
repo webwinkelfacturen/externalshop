@@ -12,6 +12,11 @@ class Category extends Processor {
         return json_decode($http->getCategories($this->user), true);
     }
 
+    function readCategory(string $id):array {
+        $http = new CategoryHTTP();
+        return json_decode($http->getCategory($this->user, $id), true);
+    }
+
     function add(array $array):array {
         $http  = new CategoryHTTP();
         return json_decode($http->add($this->user, ['categories' => json_encode($array)]), true);

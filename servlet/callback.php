@@ -26,7 +26,7 @@ if ($code){
 
     $refreshtoken = $return['refresh_token'];
     $accesstoken  = $return['access_token'];
-    writeTokens(['tokensource', 'tokensourcesecret'], [$refreshtoken, $accesstoken]);
+    writeTokens(['clientid', 'clientsecret'], [$refreshtoken, $accesstoken]);
 
     header("Location: " . determineNextpage());
 }

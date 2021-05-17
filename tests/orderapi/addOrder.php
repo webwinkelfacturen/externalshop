@@ -20,10 +20,10 @@ class addOrdersTest extends \PHPUnit\Framework\TestCase {
         $this->deleteOrders();
 
         $processor = new Order($parms['clientid'], $parms['clientsecret']);
-        //print_r($this->order1()); die();
         $result    = $processor->add($this->order1());
         //print_r($result);
         //die();
+
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
         $this->assertTrue(count($result['data']) == 1);

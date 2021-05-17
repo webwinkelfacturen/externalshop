@@ -22,7 +22,6 @@ class addCategoriesTest extends \PHPUnit\Framework\TestCase {
     public function testAddCategories($parms) {
         $processor = new Category($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->categories());
-	print_r($result); die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));

@@ -10,13 +10,13 @@ class Category extends HTTP {
     
     function getCategories( UserAuth $userauth, int $page = 1, int $count = 10 ):string {
         $constants = new Constants();
-        $url = $constants->getEndpointurl( 'categoryapi' ) .'/readcategories?page=' . $page . '&count=' . $count;
+        $url = $constants->getEndpointurl( 'categoryapi' ) .'/listcategories?page=' . $page . '&count=' . $count;
         return $this->send_msg( $userauth, $url, 'GET', [], true );
     }
 
     function getCategory( UserAuth $userauth, string $id ):string {
         $constants = new Constants();
-        $url = $constants->getEndpointurl( 'categoryapi' ) . '/readcategorybyid?categoryid=' . $id;
+        $url = $constants->getEndpointurl( 'categoryapi' ) . '/listCategoryById?categoryid=' . $id;
         return $this->send_msg( $userauth, $url, 'GET', [], true );
     }
 
