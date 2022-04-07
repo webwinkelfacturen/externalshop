@@ -7,13 +7,13 @@ error_reporting(E_ALL);
 require __DIR__ . '/../../../autoload.php';
 
 use Externalshop\Processor\Authentication;
-use Externalshop\Processor\Customer;
 use Externalshop\Processor\Tax;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addTaxesTest extends \PHPUnit\Framework\TestCase {
+class addTaxes extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void 
+    {
         $this->deleteTaxes();
     }
 
@@ -30,6 +30,7 @@ class addTaxesTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(count($result['data']) == 4);
 
         $diff1 = $this->validate($result['data'], $parms['response']);
+        //print_r($diff1); die();
         $this->assertTrue(strlen($diff1) == 0);
     }
 
@@ -59,7 +60,7 @@ class addTaxesTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
-        return '{"data":[{"taxid":"111","percentage_1":"0.0900","percentage_100":"9.0000","title":"testtax","description":null,"country":"NL"},{"taxid":"112","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"NL"},{"taxid":"211","percentage_1":"0.0600","percentage_100":"6.0000","title":"testtax","description":null,"country":"BE"},{"taxid":"212","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"BE"}],"message":"Your data is inserted successfully"}';
+        return '{"data":[{"taxid":"111","taxcode":"VL","percentage_1":"0.0900","percentage_100":"9.0000","title":"testtax","description":null,"country":"NL"},{"taxid":"112","taxcode":"VH","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"NL"},{"taxid":"211","taxcode":"VLBE","percentage_1":"0.0600","percentage_100":"6.0000","title":"testtax","description":null,"country":"BE"},{"taxid":"212","taxcode":"VHBE","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"BE"}],"message":"Your data is inserted successfully"}';
     }
 
     private function validate(array $trx1, array $trx2):string {
@@ -72,24 +73,28 @@ class addTaxesTest extends \PHPUnit\Framework\TestCase {
         return [
                 [
                  'taxid'      => 111,
+                 'taxcode'    => 'VL',
                  'percentage' => 9.00,
                  'title'      => 'testtax',
                  'country'    => 'NL',
                 ],
                 [
                  'taxid'      => 112,
+                 'taxcode'    => 'VH',
                  'percentage' => 0.21,
                  'title'      => 'testtax',
                  'country'    => 'NL',
                 ],
                 [
                  'taxid'      => 211,
+                 'taxcode'    => 'VLBE',
                  'percentage' => 6.00,
                  'title'      => 'testtax',
                  'country'    => 'BE',
                 ],
                 [
                  'taxid'      => 212,
+                 'taxcode'    => 'VHBE',
                  'percentage' => 0.21,
                  'title'      => 'testtax',
                  'country'    => 'BE',

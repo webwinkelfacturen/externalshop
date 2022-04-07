@@ -11,7 +11,7 @@
       <file>categoryapi/readCategory.php</file>
     </testsuite>
     <testsuite name="customerapi">
-      <file>closureapi/addCustomer.php</file>
+      <file>customerapi/addCustomer.php</file>
     </testsuite>
     <testsuite name="invoiceapi">
       <file>invoiceapi/readInvoices.php</file>

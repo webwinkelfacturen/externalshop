@@ -10,15 +10,17 @@ use Externalshop\Processor\Authentication;
 use Externalshop\Processor\Receipt;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readReceiptsTest extends \PHPUnit\Framework\TestCase {
+class readReceipts extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->addReceipts();
     }
    /**
      * @dataProvider dataProviderReceipt
      */
-    public function testReadReceipts($parms) {
+    public function testReadReceipts(array $parms): void
+    {
         $processor = new Receipt($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->readReceipts($parms['startdate'], $parms['enddate']);
        	//print_r($result);print_r($parms['response']);die();

@@ -10,12 +10,13 @@ use Externalshop\Processor\Authentication;
 use Externalshop\Processor\Paymentmethod;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readPaymentmethodsTest extends \PHPUnit\Framework\TestCase {
+class readPaymentmethods extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderPaymentmethod
      */
-    public function testReadPaymentmethods($parms) {
+    public function testReadPaymentmethods(array $parms): void
+    {
         $this->addPaymentmethods();
         $processor = new Paymentmethod($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->readPaymentmethods();

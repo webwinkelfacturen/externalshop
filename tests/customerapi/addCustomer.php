@@ -10,16 +10,19 @@ use Externalshop\Processor\Authentication;
 use Externalshop\Processor\Customer;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addCustomerTest extends \PHPUnit\Framework\TestCase {
+class addCustomer extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderCustomer
      */
-    public function testAddCustomer($parms) {
+    public function testAddCustomer(array $parms): void
+    {
         $this->deleteCustomers();
 
         $processor = new Customer($parms['clientid'], $parms['clientsecret'], $parms['jsonencode']);
         $result    = $processor->add($this->customer1());
+        print_r($result);
+        die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));

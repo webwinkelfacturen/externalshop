@@ -11,18 +11,19 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Refund;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addRefundTest extends \PHPUnit\Framework\TestCase {
+class addRefund extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderRefund
      */
-    public function testReadRefunds($parms) {
+    public function testReadRefunds(array $parms): void
+    {
         $this->deleteRefunds();
 
         $processor = new Refund($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->refund1());
-        //print_r($result);
-        //die();
+        print_r($result);
+        die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));

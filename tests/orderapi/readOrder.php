@@ -11,20 +11,23 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Order;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readOrdersTest extends \PHPUnit\Framework\TestCase {
+class readOrder extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->addOrders();
     }
 
-    public function tearDown() {
+    public function tearDown(): void
+    {
         $this->deleteOrders();
     }
 
    /**
      * @dataProvider dataProviderOrder
      */
-    public function testReadOrders($parms) {
+    public function testReadOrders(array $parms): void 
+    {
         $processor = new Order($parms['clientid'], $parms['clientsecret']);
         $result    = json_decode($processor->readOrders($parms['startdate'], $parms['enddate']), true);
 	//print_r($result); die();

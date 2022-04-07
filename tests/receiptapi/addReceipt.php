@@ -7,16 +7,16 @@ error_reporting(E_ALL);
 require __DIR__ . '/../../../autoload.php';
 
 use Externalshop\Processor\Authentication;
-use Externalshop\Processor\Customer;
 use Externalshop\Processor\Receipt;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addReceiptsTest extends \PHPUnit\Framework\TestCase {
+class addReceipt extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderReceipt
      */
-    public function testReadReceipts($parms) {
+    public function testReadReceipts(array $parms): void
+    {
         $this->deleteReceipts();
 
         $processor = new Receipt($parms['clientid'], $parms['clientsecret']);

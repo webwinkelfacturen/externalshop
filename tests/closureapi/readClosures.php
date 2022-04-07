@@ -12,9 +12,10 @@ use Externalshop\Processor\Closure;
 use Externalshop\Processor\Paymentmethod;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readClosuresTest extends \PHPUnit\Framework\TestCase {
+class readClosures extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->deleteClosures();
         $this->addClosures();
         $this->addCategories();
@@ -24,7 +25,8 @@ class readClosuresTest extends \PHPUnit\Framework\TestCase {
    /**
      * @dataProvider dataProviderClosure
      */
-    public function testReadClosures($parms) {
+    public function testReadClosures(array $parms): void
+    {
         $processor = new Closure($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->readClosures($parms['startdate'], $parms['enddate']);
 	//print_r($result); die();

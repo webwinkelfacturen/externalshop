@@ -11,12 +11,13 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Order;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addOrdersTest extends \PHPUnit\Framework\TestCase {
+class addOrder extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderOrder
      */
-    public function testReadOrders($parms) {
+    public function testReadOrders(array $parms): void
+    {
         $this->deleteOrders();
 
         $processor = new Order($parms['clientid'], $parms['clientsecret']);

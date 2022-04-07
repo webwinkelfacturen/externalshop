@@ -24,6 +24,7 @@ if ($code){
         return $string;
     }
 
+    print_r($return);
     $refreshtoken = $return['refresh_token'];
     $accesstoken  = $return['access_token'];
     writeTokens(['clientid', 'clientsecret'], [$refreshtoken, $accesstoken]);
@@ -42,9 +43,13 @@ function determineCode(array $get, array $argv):string {
 }
 
 function getTokenRequest(array $get, array $argv):array {
-    if (is_array($get) && array_key_exists('code', $get)) {
+    if (count($get) > 0 && array_key_exists('code', $get)) {
         $externalshopoauth  = new OAuth();
         return $externalshopoauth->token_request($get['code']);
+    }
+    if (count($argv) > 1) {
+        $externalshopoauth  = new OAuth();
+        return $externalshopoauth->token_request($argv[1]);
     }
     if (StringUtils::count_wwf($argv) > 2) {
         return json_decode($argv[2], true);

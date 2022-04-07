@@ -11,16 +11,18 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Refund;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readRefundsTest extends \PHPUnit\Framework\TestCase {
+class readRefunds extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->addRefunds();
     }
 
    /**
      * @dataProvider dataProviderRefund
      */
-    public function testReadRefunds($parms) {
+    public function testReadRefunds(array $parms): void
+    {
         $processor = new Refund($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->readRefunds($parms['startdate'], $parms['enddate']);
         //print_r(json_encode($result['data'])); die();

@@ -7,20 +7,21 @@ error_reporting(E_ALL);
 require __DIR__ . '/../../../autoload.php';
 
 use Externalshop\Processor\Authentication;
-use Externalshop\Processor\Customer;
 use Externalshop\Processor\Paymentmethod;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addPaymentmethodesTest extends \PHPUnit\Framework\TestCase {
+class addPaymentmethods extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->deletePaymentmethodes();
     }
 
    /**
      * @dataProvider dataProviderPaymentmethodes
      */
-    public function testAddPaymentmethodes($parms) {
+    public function testAddPaymentmethodes(array $parms): void
+    {
         $processor = new Paymentmethod($parms['clientid'], $parms['clientsecret']);
         $result    = json_decode($processor->add($this->paymentmethods()), true);
 	//print_r($result); die();

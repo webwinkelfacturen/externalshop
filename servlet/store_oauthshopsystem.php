@@ -2,7 +2,6 @@
 
 require( dirname( __FILE__ ) . '/../../autoload.php' );
 
-use Externalshop\System\HTTP\OAuth;
 use Externalshop\System\Utils\Constants;
 
 $constants   = new Constants();

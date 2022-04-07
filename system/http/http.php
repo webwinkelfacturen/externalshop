@@ -30,8 +30,8 @@ class HTTP {
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
             }
             if ($data) { 
+                $data['signature'] = $this->determineSignature($user, $data);
                 if (in_array($method, ['DELETE', 'POST'])) { 
-                    $data['signature'] = $this->determineSignature($user->getClientsecret(), $data);
                     if ($jsonencode) {
                         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data)  );
                     } else {
@@ -40,17 +40,19 @@ class HTTP {
                 } else { 
                     $url = sprintf("%s?%s", $url, http_build_query($data));
                 }
+            } else {
+                $url = $url . '&signature=' . $this->determineSignature($user, []);
             }
+            echo $url . "\r\n";
         
             $result = curl_exec($curl);
+            print_r($result);
 
             if ($firsttry && $this->tokenExpired($result)) {
                 $this->getToken($user);
                 $this->send_msg($user, $url, $method, $data, false);
             }
   
-            //error_log("\n\rresponse\n\r");
-            //error_log(print_r($result, true));
             curl_close($curl);
 
             return (string)$result;
@@ -87,9 +89,12 @@ class HTTP {
         return 'Content-Type: application/x-www-form-urlencoded';
     }
 
-    private function determineSignature(string $token, array $array):string {
+    private function determineSignature(UserAuth $user, array $array):string {
         $constants = new Constants();
-       
-        return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().(string)reset($array).gmdate("dmY") );
+        if (count($array) > 0) {
+            return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().(string)reset($array).gmdate("dmY") );
+        }
+        error_log('secret' . gmdate("Ymd") . ' - ' . gmdate("dmY") . '-' . $user->getClientsecret() . ' - ' . gmdate("dmY"));
+        return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().gmdate("dmY") );
     }
 }

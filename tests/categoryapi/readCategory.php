@@ -10,16 +10,18 @@ use Externalshop\Processor\Authentication;
 use Externalshop\Processor\Category;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readCategoryTest extends \PHPUnit\Framework\TestCase {
+class readCategory extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->addCategories();
     }
 
    /**
      * @dataProvider dataProviderCategory
      */
-    public function testReadCategory($parms) {
+    public function testReadCategory(array $parms): void
+    {
         $processor = new Category($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->readCategory($parms['id']);
 	//print_r(json_encode($result)); die();

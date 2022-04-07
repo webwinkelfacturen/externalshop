@@ -10,20 +10,20 @@ use Externalshop\Processor\Authentication;
 use Externalshop\Processor\Tax;
 use Externalshop\System\Utils\ArrayUtils;
 
-//phpunit v7.5
-class readTaxesTest extends \PHPUnit\Framework\TestCase {
+class readTaxes extends \PHPUnit\Framework\TestCase {
 
    /**
      * @dataProvider dataProviderTax
      */
-    public function testReadTaxes($parms) {
+    public function testReadTaxes(array $parms): void
+    {
         $this->addTaxes($parms['jsonencode']);
 
         $processor = new Tax($parms['clientid'], $parms['clientsecret']);
 
-        $result    = json_decode($processor->readTaxes(), true);
+        $result = json_decode($processor->readTaxes(), true);
         //print_r($result);
-        //die();
+        die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
@@ -80,12 +80,13 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
     }
 
     private function readResponse1() {
-        return '{"data":[{"taxid":"112","percentage_1":"0.0900","percentage_100":"9.0000","title":"testtax","description":null,"country":"BE","createddate":"2021-04-13 00:00:00","changedate":null},{"taxid":"212","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"BE","createddate":"2021-04-13 00:00:00","changedate":null}],"message":"Result"}';
+        return '{"data":[{"taxid":"112","taxcode":"VL","percentage_1":"0.0900","percentage_100":"9.0000","title":"testtax","description":null,"country":"BE","createddate":"2021-04-13 00:00:00","changedate":null},{"taxid":"212","taxcode":"VH","percentage_1":"0.2100","percentage_100":"21.0000","title":"testtax","description":null,"country":"BE","createddate":"2021-04-13 00:00:00","changedate":null}],"message":"Result"}';
     }
 
     private function tax1() {
         $tax = [
                 'taxid' => 112,
+                'taxcode' => 'VL',
                 'percentage' => 0.09,
                 'percentage_100' => 9,
                 'title' => 'testtax',
@@ -100,6 +101,7 @@ class readTaxesTest extends \PHPUnit\Framework\TestCase {
     private function tax2() {
         $tax = [
                 'taxid' => 212,
+                'taxcode' => 'VH',
                 'percentage' => 0.21,
                 'percentage_100' => 21,
                 'title' => 'testtax',

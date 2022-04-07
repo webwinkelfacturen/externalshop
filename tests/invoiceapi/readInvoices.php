@@ -11,18 +11,20 @@ use Externalshop\Processor\Customer;
 use Externalshop\Processor\Invoice;
 use Externalshop\System\Utils\ArrayUtils;
 
-class readInvoicesTest extends \PHPUnit\Framework\TestCase {
+class readInvoices extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
     }
 
-    public function tearDown() {
+    public function tearDown(): void
+    {
     }
 
    /**
      * @dataProvider dataProviderInvoice
      */
-    public function testReadInvoices($parms) {
+    public function testReadInvoices(array $parms): void {
         //$this->deleteAllInvoices();
         $this->deleteInvoices();
 

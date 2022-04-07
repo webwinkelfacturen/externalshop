@@ -12,16 +12,17 @@ use Externalshop\Processor\Closure;
 use Externalshop\Processor\Paymentmethod;
 use Externalshop\System\Utils\ArrayUtils;
 
-class addClosuresTest extends \PHPUnit\Framework\TestCase {
+class addClosure extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
     }
 
    /**
      * @dataProvider dataProviderClosures
      */
-    public function testAddClosures($parms) {
-        //$this->deleteAllClosures();
+    public function testAddClosures(array $parms): void
+    {
         $this->deleteClosures();
 
         $this->addCategories();
@@ -29,7 +30,7 @@ class addClosuresTest extends \PHPUnit\Framework\TestCase {
 
         $processor = new Closure($parms['clientid'], $parms['clientsecret']);
         $result    = $processor->add($this->closures());
-	//print_r($result); die();
+	print_r($result); die();
 
         $this->assertTrue(array_key_exists('data', $result));
         $this->assertTrue(is_array($result['data']));
@@ -45,14 +46,8 @@ class addClosuresTest extends \PHPUnit\Framework\TestCase {
         $parms1['clientsecret'] = $authentication->readValue('clientsecret');
         $parms1['response']     = json_decode($this->readResponse1(), true)['data'];
         return [
-	    [$parms1],
-	];
-    }
-
-    private function deleteAllClosures() {
-        $authentication = new Authentication();
-        $processor      = new Closure($authentication->readValue('clientid'), $authentication->readValue('clientsecret'));
-        $processor->deleteAll();
+	            [$parms1],
+	           ];
     }
 
     private function deleteClosures() {

@@ -10,20 +10,23 @@ use Externalshop\Processor\Authentication;
 use Externalshop\Processor\Order;
 use Externalshop\System\Utils\ArrayUtils;
 
-class AddOrderTotalDiscountsInclExclTest extends \PHPUnit\Framework\TestCase {
+class addOrderErrorTotalDiscountsInclExcl extends \PHPUnit\Framework\TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->deleteOrders();
     }
 
-    public function tearDown() {
+    public function tearDown(): void
+    {
         $this->deleteOrders();
     }
 
    /**
      * @dataProvider dataProviderOrder
      */
-    public function testAddOrderNoSyncDiscountsInclExl($parms) {
+    public function testAddOrderNoSyncDiscountsInclExl(array $parms): void
+    {
         $processor = new Order($parms['clientid'], $parms['clientsecret']);
         $result    = $this->addOrders();
         //print_r($result);
