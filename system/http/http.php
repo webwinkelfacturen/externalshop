@@ -46,7 +46,6 @@ class HTTP {
             echo $url . "\r\n";
         
             $result = curl_exec($curl);
-            print_r($result);
 
             if ($firsttry && $this->tokenExpired($result)) {
                 $this->getToken($user);
@@ -94,7 +93,6 @@ class HTTP {
         if (count($array) > 0) {
             return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().(string)reset($array).gmdate("dmY") );
         }
-        error_log('secret' . gmdate("Ymd") . ' - ' . gmdate("dmY") . '-' . $user->getClientsecret() . ' - ' . gmdate("dmY"));
         return md5( gmdate("Ydm").gmdate("dmY").$constants->getClientsecret().gmdate("dmY") );
     }
 }

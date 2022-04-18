@@ -10,7 +10,7 @@ class Closure extends HTTP {
     
     function getClosures( UserAuth $userauth, string $startdate, string $enddate, int $page = 1, int $count = 10 ):string {
         $constants = new Constants();
-        $url = $constants->getEndpointurl( 'closureapi' ) .'/listclosures?startdate=' . $startdate . '&enddate=' . $enddate . '&page=' . $page . '&count=' . $count;
+        $url = $constants->getEndpointurl( 'closureapi' ) .'/searchclosures?startdate=' . $startdate . '&enddate=' . $enddate . '&page=' . $page . '&count=' . $count;
         return $this->send_msg( $userauth, $url, 'GET', [], true );
     }
 
